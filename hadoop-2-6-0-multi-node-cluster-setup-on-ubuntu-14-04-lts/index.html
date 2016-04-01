@@ -1,0 +1,553 @@
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Hadoop 2.6.0 Multi Node Cluster Setup on Ubuntu 14.04 LTS</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=06d5367900">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic%7COpen+Sans:700,400">
+
+    <link rel="canonical" href="http://www.naveenjaiswal.co/hadoop-2-6-0-multi-node-cluster-setup-on-ubuntu-14-04-lts/">
+    <meta name="referrer" content="origin">
+    
+    <meta property="og:site_name" content="Bit n Crumbs">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Hadoop 2.6.0 Multi Node Cluster Setup on Ubuntu 14.04 LTS">
+    <meta property="og:description" content="Creating Hadoop cluster is not a big deal, its how precisely you follow the steps. For this, I am creating multi node cluster using Hadoop 2.6.0 (yarn) on ubuntu 14.04 Installing Java   sudo apt-get install default-jdk check whether java is already there or not   java -version Add">
+    <meta property="og:url" content="http://www.naveenjaiswal.co/hadoop-2-6-0-multi-node-cluster-setup-on-ubuntu-14-04-lts/">
+    <meta property="article:published_time" content="2016-04-01T16:02:56.393Z">
+    <meta property="article:modified_time" content="2016-04-01T18:28:26.279Z">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Hadoop 2.6.0 Multi Node Cluster Setup on Ubuntu 14.04 LTS">
+    <meta name="twitter:description" content="Creating Hadoop cluster is not a big deal, its how precisely you follow the steps. For this, I am creating multi node cluster using Hadoop 2.6.0 (yarn) on ubuntu 14.04 Installing Java   sudo apt-get install default-jdk check whether java is already there or not   java -version Add">
+    <meta name="twitter:url" content="http://www.naveenjaiswal.co/hadoop-2-6-0-multi-node-cluster-setup-on-ubuntu-14-04-lts/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Bit n Crumbs",
+    "author": {
+        "@type": "Person",
+        "name": "naveen jaiswal",
+        "url": "http://www.naveenjaiswal.co/author/naveen/",
+        "sameAs": "http://www.naveenjaiswal.co"
+    },
+    "headline": "Hadoop 2.6.0 Multi Node Cluster Setup on Ubuntu 14.04 LTS",
+    "url": "http://www.naveenjaiswal.co/hadoop-2-6-0-multi-node-cluster-setup-on-ubuntu-14-04-lts/",
+    "datePublished": "2016-04-01T16:02:56.393Z",
+    "dateModified": "2016-04-01T18:28:26.279Z",
+    "description": "Creating Hadoop cluster is not a big deal, its how precisely you follow the steps. For this, I am creating multi node cluster using Hadoop 2.6.0 (yarn) on ubuntu 14.04 Installing Java   sudo apt-get install default-jdk check whether java is already there or not   java -version Add"
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.7">
+    <link rel="alternate" type="application/rss+xml" title="Bit n Crumbs" href="http://www.naveenjaiswal.co/rss/">
+</head>
+<body class="post-template nav-closed">
+
+    <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="index.html#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+            <li class="nav-home" role="presentation"><a href="http://www.naveenjaiswal.co/">Home</a></li>
+    </ul>
+    <a class="subscribe-button icon-feed" href="http://www.naveenjaiswal.co/rss/">Subscribe</a>
+</div>
+<span class="nav-cover"></span>
+
+
+    <div class="site-wrapper">
+
+        
+
+
+<header class="main-header post-head no-cover">
+    <nav class="main-nav  clearfix">
+        
+            <a class="menu-button icon-menu" href="index.html#"><span class="word">Menu</span></a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+    <article class="post">
+
+        <header class="post-header">
+            <h1 class="post-title">Hadoop 2.6.0 Multi Node Cluster Setup on Ubuntu 14.04 LTS</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2016-04-01">01 April 2016</time> 
+            </section>
+        </header>
+
+        <section class="post-content">
+            <p>Creating Hadoop cluster is not a big deal, its how precisely you follow the steps. For this, I am creating multi node cluster using Hadoop 2.6.0 (yarn) on ubuntu 14.04</p>
+
+<h3 id="installingjava">Installing Java</h3>
+
+<blockquote>
+  <p>sudo apt-get install default-jdk</p>
+</blockquote>
+
+<p>check whether java is already there or not</p>
+
+<blockquote>
+  <p>java -version</p>
+</blockquote>
+
+<h3 id="addadedicatedhadoopuser">Add a dedicated hadoop user</h3>
+
+<blockquote>
+  <p>sudo addgroup hadoopgroup</p>
+  
+  <p>sudo adduser --ingroup hadoopgroup hdpuser</p>
+  
+  <p>sudo adduser hdpuser sudo</p>
+</blockquote>
+
+<h3 id="installingssh">Installing SSH</h3>
+
+<blockquote>
+  <p>sudo apt-get install ssh</p>
+</blockquote>
+
+<h3 id="switchuser">Switch User</h3>
+
+<blockquote>
+  <p>su hdpuser</p>
+  
+  <p>sudo apt-get update</p>
+</blockquote>
+
+<h3 id="generatekeygen">Generate keygen</h3>
+
+<blockquote>
+  <p>ssh-keygen -t rsa -P ""</p>
+  
+  <p>cat $HOME/.ssh/id<em>rsa.pub &gt;&gt; $HOME/.ssh/authorized</em>keys</p>
+</blockquote>
+
+<h3 id="installhadoop">Install Hadoop</h3>
+
+<blockquote>
+  <p>sudo wget <a href="http://mirrors.sonic.net/apache/hadoop/common/hadoop-2.6.0/hadoop-2.6.0.tar.gz">http://mirrors.sonic.net/apache/hadoop/common/hadoop-2.6.0/hadoop-2.6.0.tar.gz</a></p>
+  
+  <p>sudo tar xvzf hadoop-2.6.0.tar.gz</p>
+  
+  <p>sudo mv hadoop-2.6.0 /usr/local/hadoop</p>
+  
+  <p>sudo chown -R hdpuser:hadoopgroup /usr/local/hadoop</p>
+</blockquote>
+
+<h3 id="changeinhostsfile">Change in hosts file</h3>
+
+<p>find out the ip address of all master and slave nodes, by using command </p>
+
+<blockquote>
+  <p>ifconfig</p>
+</blockquote>
+
+<p>and now make entry in host file (remove 127.0.1.1 entry from hosts file)</p>
+
+<blockquote>
+  <p>sudo gedit /etc/hosts</p>
+</blockquote>
+
+<p>and entry accordingly </p>
+
+<blockquote>
+  <p>172.50.88.15     M-1923</p>
+  
+  <p>172.50.88.7    M-1922</p>
+</blockquote>
+
+<p>here M-1923 is my master node and M-1922 my slave node.</p>
+
+<p>Make sure your Hostname in hosts file  match with your hostname file  </p>
+
+<blockquote>
+  <p>cat /etc/hostname</p>
+</blockquote>
+
+<p><mark> Do this on all master and slave nodes and change them accordingly</mark></p>
+
+<h1 id="findjavalocation">find java location</h1>
+
+<blockquote>
+  <p>update-alternatives --config java</p>
+</blockquote>
+
+<h3 id="edittbashrcfile">Edit ~/.bashrc file</h3>
+
+<blockquote>
+  <p>sudo gedit ~/.bashrc</p>
+</blockquote>
+
+<p>append the following to the end of ~/.bashrc:</p>
+
+<blockquote>
+  <p>export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64</p>
+  
+  <p>export HADOOP_INSTALL=/usr/local/hadoop</p>
+  
+  <p>export PATH=$PATH:$HADOOP_INSTALL/bin</p>
+  
+  <p>export PATH=$PATH:$HADOOP_INSTALL/sbin</p>
+  
+  <p>export HADOOP<em>MAPRED</em>HOME=$HADOOP_INSTALL</p>
+  
+  <p>export HADOOP<em>COMMON</em>HOME=$HADOOP_INSTALL</p>
+  
+  <p>export HADOOP<em>HDFS</em>HOME=$HADOOP_INSTALL</p>
+  
+  <p>export YARN<em>HOME=$HADOOP</em>INSTALL</p>
+  
+  <p>export HADOOP<em>COMMON</em>LIB<em>NATIVE</em>DIR=$HADOOP_INSTALL/lib/native</p>
+  
+  <p>export HADOOP<em>OPTS="-Djava.library.path=$HADOOP</em>INSTALL/lib"</p>
+</blockquote>
+
+<p>note that the JAVA_HOME path should be set just before '/jre'</p>
+
+<blockquote>
+  <p>source ~/.bashrc</p>
+</blockquote>
+
+<h3 id="editmastersandslavesfile">Edit masters and slaves file</h3>
+
+<p><mark>do this only on master node</mark></p>
+
+<blockquote>
+  <p>cd /usr/local/hadoop/etc/hadoop</p>
+  
+  <p>sudo gedit masters</p>
+</blockquote>
+
+<p>here, provide the hostname of master node (in my case , it is M-1923)</p>
+
+<blockquote>
+  <p>sudo gedit slaves</p>
+</blockquote>
+
+<p>add all slave node hostname along with master node separated by new line. <br>
+( remove master node hostname if you dont want your master node to do processing )</p>
+
+<p><mark>no need to change masters and slaves file on slave node </mark></p>
+
+<h3 id="edithadoopenvsh">Edit hadoop-env.sh</h3>
+
+<blockquote>
+  <p>sudo gedit hadoop-env.sh</p>
+</blockquote>
+
+<p>replace the below line with previous #JAVA_HOME</p>
+
+<blockquote>
+  <p>export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64</p>
+</blockquote>
+
+<p><mark>do change this on both master and slave nodes </mark></p>
+
+<h3 id="editcoresitexml">Edit core-site.xml</h3>
+
+<blockquote>
+  <p>sudo gedit core-site.xml</p>
+</blockquote>
+
+<p>create temp directory</p>
+
+<blockquote>
+  <p>sudo mkdir -p /home/hdpuser/tmp</p>
+  
+  <p>sudo chown hdpuser:hadoopgroup /home/hdpuser/tmp</p>
+</blockquote>
+
+<p>put below code between configuration tags  </p>
+
+<pre><code>&lt;property&gt;  
+     &lt;name&gt;hadoop.tmp.dir&lt;/name&gt;  
+     &lt;value&gt;/home/hdpuser/tmp&lt;/value&gt;  
+     &lt;description&gt;Temporary Directory.&lt;/description&gt;
+&lt;/property&gt;
+
+&lt;property&gt;  
+     &lt;name&gt;fs.defaultFS&lt;/name&gt;  
+     &lt;value&gt;hdfs://M-1923:54310&lt;/value&gt;  
+&lt;/property&gt;  
+</code></pre>
+
+<p>here M-1923 is master node's hostname <br>
+<mark>do change this on both master and slave nodes </mark></p>
+
+<h3 id="editmapredsitexml">Edit mapred-site.xml</h3>
+
+<h5 id="onlyonmasternode"><mark>only on master node</mark></h5>
+
+<blockquote>
+  <p>sudo gedit mapred-site.xml</p>
+</blockquote>
+
+<p>put below code between configuration tags  </p>
+
+<pre><code>&lt;property&gt;  
+     &lt;name&gt;mapreduce.jobtracker.address&lt;/name&gt;
+     &lt;value&gt;M-1923:54311&lt;/value&gt;
+&lt;/property&gt;
+
+
+&lt;property&gt;  
+     &lt;name&gt;mapreduce.framework.name&lt;/name&gt;
+     &lt;value&gt;yarn&lt;/value&gt;
+     &lt;description&gt;The framework for running mapreduce jobs&lt;/description&gt;
+&lt;/property&gt;
+</code></pre>
+
+<p>here M-1923 is master node's hostname <br>
+<mark>do  this change only on master node </mark></p>
+
+<h3 id="edityarnsitexml">Edit yarn-site.xml</h3>
+
+<blockquote>
+  <p>sudo gedit yarn-site.xml</p>
+</blockquote>
+
+<p>put below code between configuration tags  </p>
+
+<pre><code>&lt;property&gt;  
+     &lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt;
+     &lt;value&gt;mapreduce_shuffle&lt;/value&gt;
+&lt;/property&gt;
+
+&lt;property&gt;  
+     &lt;name&gt;yarn.resourcemanager.scheduler.address&lt;/name&gt;
+     &lt;value&gt;M-1923:8030&lt;/value&gt;
+&lt;/property&gt; 
+
+&lt;property&gt;  
+     &lt;name&gt;yarn.resourcemanager.address&lt;/name&gt;
+     &lt;value&gt;M-1923:8032&lt;/value&gt;
+&lt;/property&gt;
+
+&lt;property&gt;  
+      &lt;name&gt;yarn.resourcemanager.webapp.address&lt;/name&gt;
+      &lt;value&gt;M-1923:8088&lt;/value&gt;
+&lt;/property&gt;
+
+&lt;property&gt;  
+      &lt;name&gt;yarn.resourcemanager.resource-tracker.address&lt;/name&gt;
+      &lt;value&gt;M-1923:8031&lt;/value&gt;
+&lt;/property&gt;
+
+&lt;property&gt;  
+      &lt;name&gt;yarn.resourcemanager.admin.address&lt;/name&gt;
+      &lt;value&gt;M-1923:8033&lt;/value&gt;
+&lt;/property&gt;
+</code></pre>
+
+<p>here M-1923 is master node's hostname <br>
+<mark>do this change on both master as well slave nodes </mark></p>
+
+<h3 id="edithfdssitexml">Edit hfds-site.xml</h3>
+
+<h5 id="masternodeconfiguration"><mark>Master node configuration</mark></h5>
+
+<blockquote>
+  <p>sudo mkdir -p /usr/local/hadoop/hadoop_store/hdfs/namenode</p>
+  
+  <p>sudo mkdir -p /usr/local/hadoop/hadoop_store/hdfs/datanode</p>
+  
+  <p>sudo chown -R hdpuser:hadoopgroup /usr/local/hadoop</p>
+</blockquote>
+
+<p>put below code between configuration tags  </p>
+
+<pre><code>&lt;property&gt;  
+     &lt;name&gt;dfs.replication&lt;/name&gt;
+     &lt;value&gt;2&lt;/value&gt;
+&lt;/property&gt;
+
+
+&lt;property&gt;  
+     &lt;name&gt;dfs.namenode.name.dir&lt;/name&gt;
+     &lt;value&gt;/usr/local/hadoop/hadoop_data/namenode&lt;/value&gt;
+&lt;/property&gt;
+
+
+&lt;property&gt;  
+     &lt;name&gt;dfs.datanode.data.dir&lt;/name&gt;
+     &lt;value&gt;/usr/local/hadoop/hadoop_data/datanode&lt;/value&gt;
+&lt;/property&gt;  
+</code></pre>
+
+<p><mark>master node configuration </mark>  </p>
+
+<h5 id="slavenodeconfiguration"><mark>Slave node configuration</mark></h5>
+
+<blockquote>
+  <p>sudo mkdir -p /usr/local/hadoop/hadoop_store/hdfs/datanode</p>
+  
+  <p>sudo chown -R hdpuser:hadoopgroup /usr/local/hadoop</p>
+</blockquote>
+
+<p>put below code between configuration tags  </p>
+
+<pre><code>&lt;property&gt;  
+     &lt;name&gt;dfs.replication&lt;/name&gt;
+     &lt;value&gt;2&lt;/value&gt;
+&lt;/property&gt;
+
+
+&lt;property&gt;  
+     &lt;name&gt;dfs.namenode.name.dir&lt;/name&gt;
+     &lt;value&gt;/usr/local/hadoop/hadoop_data/namenode&lt;/value&gt;
+&lt;/property&gt;
+
+
+&lt;property&gt;  
+     &lt;name&gt;dfs.datanode.data.dir&lt;/name&gt;
+     &lt;value&gt;/usr/local/hadoop/hadoop_data/datanode&lt;/value&gt;
+&lt;/property&gt;  
+</code></pre>
+
+<p><mark>slave node configuration </mark></p>
+
+<h3 id="sendkeystoslavenodes">send keys to slave nodes</h3>
+
+<blockquote>
+  <p>sudo ssh-copy-id -i ~/.ssh/id_rsa.pub hdpuser@M-1922</p>
+</blockquote>
+
+<h3 id="formatthenewhadoopfilesystem">Format the New Hadoop Filesystem</h3>
+
+<blockquote>
+  <p>hadoop namenode -format</p>
+</blockquote>
+
+<p>this will clear all data from data nodes</p>
+
+<h3 id="startinghadoop">Starting Hadoop</h3>
+
+<blockquote>
+  <p>cd /usr/local/hadoop/sbin</p>
+  
+  <p>start-dfs.sh</p>
+  
+  <p>start-yarn.sh</p>
+  
+  <p>jps</p>
+</blockquote>
+
+<p>check what's really up and running:</p>
+
+<p><mark>on master node</mark></p>
+
+<pre><code>10924 SecondaryNameNode  
+11547 Jps  
+10733 DataNode  
+10579 NameNode  
+11097 ResourceManager  
+11238 NodeManager  
+</code></pre>
+
+<p><mark>on slave node</mark></p>
+
+<pre><code>11247 Jps  
+10463 DataNode  
+15638 NodeManager  
+</code></pre>
+
+<p><mark>your hadoop cluster now up nad running </mark></p>
+
+<blockquote>
+  <p><a href="http://m-1923:8088/">http://m-1923:8088/</a></p>
+  
+  <p><a href="http://m-1923:50070/">http://m-1923:50070/</a></p>
+</blockquote>
+
+<p>test the wordcount or pi program</p>
+
+<p><mark>if you found some error or typo , please do comment it out</mark></p>
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.5&appId=1526497424323022";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+<div class="fb-comments" data-href="http://naveenjaiswal.co" data-numposts="5"></div>
+
+
+
+
+        </section>
+
+        <footer class="post-footer">
+
+
+
+            <section class="author">
+                <h4><a href="../author/naveen/">naveen jaiswal</a></h4>
+
+                    <p>Read <a href="../author/naveen/">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    <span class="author-location icon-location">pilani</span>
+                    <span class="author-link icon-link"><a href="http://www.naveenjaiswal.co">http://www.naveenjaiswal.co</a></span>
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/intent/tweet?text=Hadoop%202.6.0%20Multi%20Node%20Cluster%20Setup%20on%20Ubuntu%2014.04%20LTS&amp;url=http://www.naveenjaiswal.co/hadoop-2-6-0-multi-node-cluster-setup-on-ubuntu-14-04-lts/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://www.naveenjaiswal.co/hadoop-2-6-0-multi-node-cluster-setup-on-ubuntu-14-04-lts/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://www.naveenjaiswal.co/hadoop-2-6-0-multi-node-cluster-setup-on-ubuntu-14-04-lts/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+        </footer>
+
+    </article>
+</main>
+
+<aside class="read-next">
+    <a class="read-next-story prev no-cover" href="../how-i-setup-this-blog/">
+        <section class="post">
+            <h2>How I setup this blog</h2>
+            <p>This blog is hosted freely on github published by ghost Blogging platform and buster. install and setup ghost on…</p>
+        </section>
+    </a>
+</aside>
+
+
+
+        <footer class="site-footer clearfix">
+            <section class="copyright"><a href="http://www.naveenjaiswal.co">Bit n Crumbs</a> © 2016</section>
+            <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
+        </footer>
+
+    </div>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    
+
+    <script type="text/javascript" src="../assets/js/jquery.fitvids.js?v=06d5367900"></script>
+    <script type="text/javascript" src="../assets/js/index.js?v=06d5367900"></script>
+
+</body>
