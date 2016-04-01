@@ -3,8 +3,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>How I setup this blog</title>
-    <meta name="description" content="">
+    <title>setup blog using ghost on github pages</title>
+    <meta name="description" content="free personal blog on github pages using ghost blogging platform and buster">
 
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,14 +19,14 @@
     
     <meta property="og:site_name" content="Bit n Crumbs">
     <meta property="og:type" content="article">
-    <meta property="og:title" content="How I setup this blog">
-    <meta property="og:description" content="This blog is hosted freely on github published by ghost Blogging platform and buster. install and setup ghost on ubuntu create a folder for your blog  sudo mkdir /workspace   download ghost link  wget https://ghost.org/zip/ghost-0.7.8.zip   change link according to your ghost current version unzip">
+    <meta property="og:title" content="setup blog using ghost on github pages">
+    <meta property="og:description" content="free personal blog on github pages using ghost blogging platform and buster">
     <meta property="og:url" content="http://localhost:2368/how-i-setup-this-blog/">
     <meta property="article:published_time" content="2016-04-01T11:47:20.036Z">
-    <meta property="article:modified_time" content="2016-04-01T11:47:20.035Z">
+    <meta property="article:modified_time" content="2016-04-01T12:36:35.024Z">
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="How I setup this blog">
-    <meta name="twitter:description" content="This blog is hosted freely on github published by ghost Blogging platform and buster. install and setup ghost on ubuntu create a folder for your blog  sudo mkdir /workspace   download ghost link  wget https://ghost.org/zip/ghost-0.7.8.zip   change link according to your ghost current version unzip">
+    <meta name="twitter:title" content="setup blog using ghost on github pages">
+    <meta name="twitter:description" content="free personal blog on github pages using ghost blogging platform and buster">
     <meta name="twitter:url" content="http://localhost:2368/how-i-setup-this-blog/">
     
     <script type="application/ld+json">
@@ -40,11 +40,11 @@
         "url": "http://localhost:2368/author/naveen/",
         "sameAs": "http://www.naveenjaiswal.co"
     },
-    "headline": "How I setup this blog",
+    "headline": "setup blog using ghost on github pages",
     "url": "http://localhost:2368/how-i-setup-this-blog/",
     "datePublished": "2016-04-01T11:47:20.036Z",
-    "dateModified": "2016-04-01T11:47:20.035Z",
-    "description": "This blog is hosted freely on github published by ghost Blogging platform and buster. install and setup ghost on ubuntu create a folder for your blog  sudo mkdir /workspace   download ghost link  wget https://ghost.org/zip/ghost-0.7.8.zip   change link according to your ghost current version unzip"
+    "dateModified": "2016-04-01T12:36:35.024Z",
+    "description": "free personal blog on github pages using ghost blogging platform and buster"
 }
     </script>
 
@@ -79,7 +79,7 @@
 </header>
 
 <main class="content" role="main">
-    <article class="post">
+    <article class="post featured">
 
         <header class="post-header">
             <h1 class="post-title">How I setup this blog</h1>
@@ -116,10 +116,27 @@
 <li>edit config.js and change ur github url or custom url with default url in production settings.</li>
 </ul>
 
-<h4 id="installandsetupghostonubuntu">install and setup ghost on ubuntu</h4>
+<h4 id="setupgithubandbusterpages">setup github and buster pages</h4>
 
 <ul>
-* 
+<li>Go to your gitHub account and create a public repo named accountname.github.io (in my case it was naveenjaiswal.github.io) </li>
+<li>switch to other folder whre you want to generate your static files</li>
+<li><p>setup buster</p>
+
+<p><code> sudo buster setup </code></p>
+
+<p>and then provide git url <a href="https://github.com/accountname/accountname.github.io.git">https://github.com/accountname/accountname.github.io.git</a></p></li>
+<li><p>generate the needed static files </p>
+
+<p><code> buster generate --domain=http://127.0.0.1:2368  </code></p></li>
+<li><p>switch to static folder and add,commit and push to git repo.</p>
+
+<p><code> cd static 
+ sudo git add --all
+ sudo git commit -m "first commit"
+ sudo git push
+</code></p></li>
+<li><p>if you have custom domain , do necessary setting otherwise your domain live on  accountname.github.io like this <a href="http://naveenjaiswal.github.io/">http://naveenjaiswal.github.io/</a></p></li>
 </ul>
         </section>
 
@@ -157,12 +174,6 @@
 </main>
 
 <aside class="read-next">
-    <a class="read-next-story prev no-cover" href="../welcome-to-ghost/">
-        <section class="post">
-            <h2>Welcome to Ghost</h2>
-            <p>You're live! Nice. We've put together a little post to introduce you to the Ghost editor and get you…</p>
-        </section>
-    </a>
 </aside>
 
 
